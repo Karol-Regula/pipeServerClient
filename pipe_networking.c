@@ -14,11 +14,12 @@ int server_handshake(int * from_client){
 	char out[MESSAGE_BUFFER_SIZE];
 
 	status = mkfifo("mario", 0644);
-	*from_client = open("mario", O_RDONLY, 0644);
 
 	printf("[SERVER] Waiting for connection: \n");
+	*from_client = open("mario", O_RDONLY, 0644);
+
 	read(*from_client, received, sizeof(received));
-	printf("[SEVER] Incoming connection from %s\n", received );
+	printf("[SERVER] Incoming connection from %s\n", received );
 	remove("mario");
 
 	//BREAK UP RIGHT HERE
@@ -28,7 +29,8 @@ int server_handshake(int * from_client){
 	strcpy(out,"Welcome");
 	write(to_client, out, sizeof(out));
 
-	printf("to_client: %d\n", to_client);
+	printf("[SERVER] from_client: %d\n", *from_client);
+	printf("[SERVER] to_client: %d\n", to_client);
 	return to_client;
 }
 
@@ -43,7 +45,7 @@ int client_handshake(int * to_server){
 	status = mkfifo(pid, 0644);
 
 	*to_server = open("mario", O_WRONLY, 0644);
-	write(*to_server, pid, sizeof(out));
+	write(*to_server, pid, sizeof(pid));
 
 	from_server = open(pid, O_RDONLY, 0644);
 	read(from_server, received, sizeof(received));
@@ -54,6 +56,7 @@ int client_handshake(int * to_server){
 
 	write(*to_server, out, sizeof(out));
 
+	printf("to_server: %d\n", *to_server);
 	printf("from_server: %d\n", from_server);
 	return from_server;
 }

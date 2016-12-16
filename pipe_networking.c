@@ -50,7 +50,3 @@ int client_handshake(int * to_server){
 
 	return *from_server;
 }
-
-int main() {
-	return 0;
-}

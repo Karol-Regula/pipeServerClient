@@ -56,7 +56,7 @@ int client_handshake(int * to_server){
 
 	write(*to_server, out, sizeof(out));
 
-	printf("to_server: %d\n", *to_server);
-	printf("from_server: %d\n", from_server);
+	printf("[CLIENT] to_server: %d\n", *to_server);
+	printf("[CLIENT] from_server: %d\n", from_server);
 	return from_server;
 }

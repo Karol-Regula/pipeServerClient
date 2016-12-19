@@ -12,7 +12,6 @@ int server_handshake(int * from_client){
 	int to_client;
 	char received[MESSAGE_BUFFER_SIZE];
 	char out[MESSAGE_BUFFER_SIZE];
-	char received2[MESSAGE_BUFFER_SIZE];
 
 	status = mkfifo("mario", 0644);
 
@@ -33,7 +32,8 @@ int server_handshake(int * from_client){
 	printf("[SERVER] from_client: %d\n", *from_client);
 	printf("[SERVER] to_client: %d\n", to_client);
 
-	read(*from_client, received, sizeof(received2));
+	read(*from_client, received, sizeof(received));
+	printf("[SERVER] Received: %s\n", received);
 
 	return to_client;
 }
